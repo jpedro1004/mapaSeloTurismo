@@ -1,4 +1,4 @@
-var map = L.map('map').setView([-27.5954, -48.5580], 11);
+var map = L.map('map').setView([-27.5983, -48.4923], 10);
 var centro = L.marker([-27.5971646999945, -48.549663700164900]).bindPopup('Centro');
 var capoeiras = L.marker([-27.5999191748659, -48.589961389700136]).bindPopup('Capoeiras');
 var trindade = L.marker([-27.59772136177816, -48.52031993189055]).bindPopup('Trindade');
@@ -120,37 +120,24 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-function openModalMapa() {
-    var modal = document.getElementById("modalMapa");
-    modal.style.display = "block";
-}
-
-function closeModalMapa() {
-    var modal = document.getElementById("modalMapa");
-    modal.style.display = "none";
-}
-
-// Fechar o modal ao clicar fora dele
-window.onclick = function(event) {
-    var modal = document.getElementById("modalMapa");
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+// Recalcular o tamanho do mapa quando o modal é aberto
+document.getElementById('modalMapa').addEventListener('shown.bs.modal', function () {
+    map.invalidateSize();
+});
 
 capoeiras.addTo(map);
 itacorubi.addTo(map);
 beira_mar_shopping.addTo(map);
 
-// L.Routing.control({
-//     waypoints: [
-//         capoeiras.getLatLng(), // Ponto inicial
-//         beira_mar_shopping.getLatLng()  // Ponto final
-//     ],
-//     lineOptions: {
-//         styles: [{ color: 'red', weight: 4 }] // Cor do traçado e largura da linha
-//     },
-//     routeWhileDragging: true
-// }).addTo(map);
+L.Routing.control({
+    waypoints: [
+        capoeiras.getLatLng(), // Ponto inicial
+        beira_mar_shopping.getLatLng()  // Ponto final
+    ],
+    lineOptions: {
+        styles: [{ color: 'red', weight: 4 }] // Cor do traçado e largura da linha
+    },
+    routeWhileDragging: true
+}).addTo(map);
 
 
