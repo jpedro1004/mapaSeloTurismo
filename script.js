@@ -129,15 +129,28 @@ capoeiras.addTo(map);
 itacorubi.addTo(map);
 beira_mar_shopping.addTo(map);
 
-L.Routing.control({
+var control = L.Routing.control({
     waypoints: [
-        capoeiras.getLatLng(), // Ponto inicial
-        beira_mar_shopping.getLatLng()  // Ponto final
+        capoeiras.getLatLng(), 
+        beira_mar_shopping.getLatLng()
     ],
     lineOptions: {
-        styles: [{ color: 'red', weight: 4 }] // Cor do traçado e largura da linha
+        styles: [{ color: 'red', weight: 4 }]
     },
     routeWhileDragging: true
 }).addTo(map);
+
+control.on('routesfound', function(e) {
+    setTimeout(function() {
+        var bounds = L.latLngBounds([
+            capoeiras.getLatLng(),
+            beira_mar_shopping.getLatLng()
+        ]);
+        map.fitBounds(bounds);
+    }, 300); // Pequeno atraso para garantir que o mapa esteja pronto
+});
+
+
+
 
 
