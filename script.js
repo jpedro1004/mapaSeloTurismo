@@ -1,9 +1,4 @@
 var map = L.map('map').setView([-27.5954, -48.5580], 11);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-
 var centro = L.marker([-27.5971646999945, -48.549663700164900]).bindPopup('Centro');
 var capoeiras = L.marker([-27.5999191748659, -48.589961389700136]).bindPopup('Capoeiras');
 var trindade = L.marker([-27.59772136177816, -48.52031993189055]).bindPopup('Trindade');
@@ -121,18 +116,41 @@ var beira_mar_shopping = L.marker([-27.58490319039125, -48.54503760893324]).bind
 var floripa_shopping = L.marker([-27.55390618442158, -48.4985521732788]).bindPopup('Floripa shopping');
 var villa_romana_shopping = L.marker([-27.59014161391205, -48.51501889290563]).bindPopup('Villa romana shopping');
 
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+function openModalMapa() {
+    var modal = document.getElementById("modalMapa");
+    modal.style.display = "block";
+}
+
+function closeModalMapa() {
+    var modal = document.getElementById("modalMapa");
+    modal.style.display = "none";
+}
+
+// Fechar o modal ao clicar fora dele
+window.onclick = function(event) {
+    var modal = document.getElementById("modalMapa");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 capoeiras.addTo(map);
 itacorubi.addTo(map);
 beira_mar_shopping.addTo(map);
 
-L.Routing.control({
-    waypoints: [
-        capoeiras.getLatLng(), // Ponto inicial
-        beira_mar_shopping.getLatLng()  // Ponto final
-    ],
-    lineOptions: {
-        styles: [{ color: 'red', weight: 4 }] // Cor do traçado e largura da linha
-    },
-    routeWhileDragging: true
-}).addTo(map);
+// L.Routing.control({
+//     waypoints: [
+//         capoeiras.getLatLng(), // Ponto inicial
+//         beira_mar_shopping.getLatLng()  // Ponto final
+//     ],
+//     lineOptions: {
+//         styles: [{ color: 'red', weight: 4 }] // Cor do traçado e largura da linha
+//     },
+//     routeWhileDragging: true
+// }).addTo(map);
+
 
